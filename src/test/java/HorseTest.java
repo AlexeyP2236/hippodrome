@@ -9,14 +9,14 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HorseTest {
-    public static Stream<String> testWithMethodSource() {
+    public static Stream<String> streamWithMethodSource() {
         return Stream.of(" ", "\n", "\t");
     }
 
     @ParameterizedTest
     @NullAndEmptySource
-    @MethodSource("testWithMethodSource")
-    public void nullAndEmptyHorse(String name) {
+    @MethodSource("streamWithMethodSource")
+    public void testNullAndEmptyHorse(String name) {
         Throwable throwable = assertThrows(IllegalArgumentException.class, () -> new Horse(name, 1, 1));
 
         if (name == null) assertEquals("Name cannot be null.", throwable.getMessage());
@@ -25,7 +25,7 @@ public class HorseTest {
 
     @ParameterizedTest
     @CsvSource("-1, -1")
-    public void speedAndDistanceHorse(int speed, int distance) {
+    public void testSpeedAndDistanceHorse(int speed, int distance) {
         Throwable throwable = assertThrows(IllegalArgumentException.class, () -> new Horse("name", speed, distance));
 
         if (speed < 0) assertEquals("Speed cannot be negative.", throwable.getMessage());
@@ -34,7 +34,7 @@ public class HorseTest {
 
     @ParameterizedTest
     @CsvSource("Fox, 1, 1")
-    public void checkHorseThreeParameter(String name, int speed, int distance) {
+    public void testHorseThreeParameter(String name, int speed, int distance) {
         Horse horse = new Horse(name, speed, distance);
 
         assertEquals(name, horse.getName());
@@ -44,7 +44,7 @@ public class HorseTest {
 
     @ParameterizedTest
     @CsvSource("Fox, 1")
-    public void checkHorseTwoParameter(String name, int speed) {
+    public void testHorseTwoParameter(String name, int speed) {
         Horse horse = new Horse(name, speed);
 
         assertEquals(name, horse.getName());
@@ -53,7 +53,7 @@ public class HorseTest {
     }
 
     @Test
-    public void move() {
+    public void testMove() {
         try (MockedStatic<Horse> mockedStatic = Mockito.mockStatic(Horse.class)) {
             new Horse("Fox", 31, 45).move();
 

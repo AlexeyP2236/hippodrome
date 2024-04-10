@@ -23,7 +23,7 @@ public class HippodromeTest {
 
     @ParameterizedTest
     @NullAndEmptySource
-    public void nullAndEmptyHippodrome(List<Horse> horseList) {
+    public void testNullAndEmptyHippodrome(List<Horse> horseList) {
         Throwable throwable = assertThrows(IllegalArgumentException.class, () -> new Hippodrome(horseList));
 
         if (horseList == null) assertEquals("Horses cannot be null.", throwable.getMessage());
@@ -31,14 +31,14 @@ public class HippodromeTest {
     }
 
     @Test
-    void getHorses() {
+    void testGetHorses() {
         Hippodrome hippodrome = new Hippodrome(getNumberHorse(30));
 
         assertEquals(horses, hippodrome.getHorses());
     }
 
     @Test
-    void move() {
+    void testMove() {
         for (int i = 0; i < 50; i++) {
             horses.add(Mockito.mock(Horse.class));
         }
