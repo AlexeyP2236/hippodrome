@@ -1,4 +1,3 @@
-import org.junit.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.*;
 import org.mockito.MockedStatic;
@@ -52,12 +51,17 @@ public class HorseTest {
         assertEquals(0, horse.getDistance());
     }
 
-    @Test
-    public void testMove() {
+    @ParameterizedTest
+    @ValueSource(doubles = {0.1, 0.2, 0.5, 11.1})
+    public void testMove(double random) {
+        int speed = 31;
+        int distance = 45;
         try (MockedStatic<Horse> mockedStatic = Mockito.mockStatic(Horse.class)) {
-            new Horse("Fox", 31, 45).move();
+            mockedStatic.when(() -> Horse.getRandomDouble(0.2, 0.9)).thenReturn(random);
+            Horse horse = new Horse("Fox", speed, distance);
+            horse.move();
 
-            mockedStatic.verify(() -> Horse.getRandomDouble(0.2, 0.9));
+            assertEquals(distance + speed * random, horse.getDistance());
         }
     }
 }

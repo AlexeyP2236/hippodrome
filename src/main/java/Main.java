@@ -19,14 +19,15 @@ public class Main {
                 new Horse("Pegasus", 2.9),
                 new Horse("Cherry", 3)
         );
+        log.info("Начало скачек. Количество участников: {}", horses.size());
         Hippodrome hippodrome = new Hippodrome(horses);
         for (int i = 0; i < 5; i++) { // 100
             hippodrome.move();
             watch(hippodrome);
             TimeUnit.MILLISECONDS.sleep(2); //200
         }
-        log.info("Начало скачек. Количество участников: {}", horses.size());
         String winnerName = hippodrome.getWinner().getName();
+        log.info("Окончание скачек. Победитель: {}", winnerName);
         System.out.println(winnerName + " wins!");
     }
 
