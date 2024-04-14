@@ -21,10 +21,10 @@ public class Main {
         );
         log.info("Начало скачек. Количество участников: {}", horses.size());
         Hippodrome hippodrome = new Hippodrome(horses);
-        for (int i = 0; i < 5; i++) { // 100
+        for (int i = 0; i < 100; i++) {
             hippodrome.move();
             watch(hippodrome);
-            TimeUnit.MILLISECONDS.sleep(2); //200
+            TimeUnit.MILLISECONDS.sleep(200);
         }
         String winnerName = hippodrome.getWinner().getName();
         log.info("Окончание скачек. Победитель: {}", winnerName);
